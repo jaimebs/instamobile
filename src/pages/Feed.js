@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, Image, FlatList, StyleSheet } from 'react-native';
+import io from 'socket.io-client';
 import api from '../services/api';
 
 import camera from '../assets/camera.png';
@@ -24,9 +25,27 @@ export default class Feed extends Component {
   async componentDidMount() {
     const posts = await api.get('posts');
     this.setState({ feeds: posts.data });
-    //this.registerToSocket();
+    this.registerToSocket();
     console.log(posts.data);
   }
+
+  registerToSocket = () => {
+    const socket = io(api.defaults.baseURL);
+
+    socket.on('post', newPost => {
+      this.setState({ feeds: [newPost, ...this.feeds] });
+    });
+
+    socket.on('like', likedPost => {
+      this.setState({
+        feeds: this.state.feeds.map(post => (post._id === likedPost._id ? likedPost : post))
+      });
+    });
+  };
+
+  handleLike = id => {
+    api.post(`/posts/${id}/likes`);
+  };
 
   render() {
     return (
@@ -43,10 +62,10 @@ export default class Feed extends Component {
                 </View>
                 <Image source={more} />
               </View>
-              <Image style={styles.feedImage} source={{ uri: `http://10.0.3.2:3333/files/${item.image}` }} />
+              <Image style={styles.feedImage} source={{ uri: `${api.defaults.baseURL}/files/${item.image}` }} />
               <View style={styles.feedItemFooter}>
                 <View style={styles.actions}>
-                  <TouchableOpacity style={styles.action} onPress={() => {}}>
+                  <TouchableOpacity style={styles.action} onPress={() => this.handleLike(item._id)}>
                     <Image source={like} />
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.action} onPress={() => {}}>
@@ -56,7 +75,7 @@ export default class Feed extends Component {
                     <Image source={send} />
                   </TouchableOpacity>
                 </View>
-                <Text style={styles.likes}>Curtidas</Text>
+                <Text style={styles.likes}>{item.likes} Curtidas</Text>
                 <Text style={styles.description}>{item.description}</Text>
                 <Text style={styles.hashtags}>{item.hashtags}</Text>
               </View>
