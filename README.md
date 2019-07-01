@@ -4,7 +4,13 @@ Study project in React Native.
 
 ## Getting Started
 
-First clone project.
+First clone the project, then run npm install, then run react-native run-android / ios.
+
+## Commands React-native
+
+- react-native run android (To run Android)
+- react-native run ios (To run Ios)
+- react-native start --reset-cache (To clear the cache)
 
 ### Frameworks used
 
