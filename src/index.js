@@ -1,27 +1,6 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import Routes from './routes';
 
-export default class App extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Bem vindo Jaime!</Text>
-      </View>
-    );
-  }
+export default function App() {
+  return <Routes />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#9326c1'
-  },
-  welcome: {
-    fontSize: 28,
-    color: '#fdfdfd',
-    textAlign: 'center',
-    margin: 10
-  }
-});
