@@ -26,7 +26,6 @@ export default class Feed extends Component {
     const posts = await api.get('posts');
     this.setState({ feeds: posts.data });
     this.registerToSocket();
-    console.log(posts.data);
   }
 
   registerToSocket = () => {
