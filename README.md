@@ -25,6 +25,12 @@ React Navigation is born from the React Native community's need for an extensibl
 > react-native-gesture-handler
 
 Gesture Handler aims to replace React Native's built in touch system called Gesture Responder System.
+Obs: Run react-native link react-native-gesture-handler
+
+> react-native-image-picker
+
+Allows you to use native UI to select a photo/video from the device library or directly from the camera.
+Obs: Run react-native link react-native-image-picker. _Then go to the installation documentation_: https://github.com/react-native-community/react-native-image-picker/blob/master/docs/Install.md
 
 > socket.io-client
 
