@@ -32,11 +32,15 @@ export default class New extends Component {
             uri: `data:image/jpeg;base64,${upload.data}`
           };
 
+          let prefix;
+          let ext;
+
           if (upload.fileName) {
             [prefix, ext] = upload.fileName.split('.');
             ext = ext.toLocaleLowerCase() === 'heic' ? 'jpg' : ext;
           } else {
             prefix = new Date().getTime();
+            ext = 'jpg';
           }
 
           const image = {
